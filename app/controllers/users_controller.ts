@@ -10,7 +10,6 @@ export default class UsersController {
     private readonly randoPassword: GenerateRandomPassword = new GenerateRandomPassword(10),
     private readonly sendEmail: SendEmail = new SendEmail()
   ) {}
-
   async index({ request, response }: HttpContext) {
     const page = request.input('page')
     const perPage = request.input('perPage')

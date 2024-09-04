@@ -12,6 +12,11 @@ const LogsController = () => import('../app/controllers/logs_controller.js')
 const AuthsController = () => import('#controllers/auth_controller')
 const UsersController = () => import('#controllers/users_controller')
 import { middleware } from './kernel.js'
+const PartIndexController = () => import('#controllers/part_indices_controller')
+const PartUpdatesController = () => import('#controllers/part_updates_controller')
+const PartStoresController = () => import('#controllers/part_stores_controller')
+const VehicleIndexController = () => import('#controllers/vehicle_indexs_controller')
+const VehicleStoresController = () => import('#controllers/vehicle_stores_controller')
 const TypePartDropdownsController = () => import('#controllers/type_part_dropdowns_controller')
 const VehicleTypeDropdownsController = () =>
   import('#controllers/vehicle_type_dropdowns_controller')
@@ -93,4 +98,21 @@ router
     router.get('/dropdown', [VehicleTypeDropdownsController, 'index'])
   })
   .prefix('vehicle_type')
+  .use(middleware.auth())
+
+router
+  .group(() => {
+    router.post('/', [VehicleStoresController, 'store'])
+    router.get('/', [VehicleIndexController, 'index'])
+  })
+  .prefix('vehicles')
+  .use(middleware.auth())
+
+router
+  .group(() => {
+    router.post('/', [PartStoresController, 'store'])
+    router.get('/', [PartIndexController, 'index'])
+    router.put('/:partId', [PartUpdatesController, 'update'])
+  })
+  .prefix('parts')
   .use(middleware.auth())

@@ -9,7 +9,6 @@ export default class RolePermissionsController {
     const permission_role = await request.validateUsing(rolePermissionValidation, {
       messagesProvider: userValidationMessage,
     })
-
     try {
       await PermissionRole.create(permission_role)
       return response.status(200).send({ message: 'Permissao associada com sucesso' })
