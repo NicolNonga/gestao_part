@@ -23,6 +23,9 @@ export default class Part extends BaseModel {
   @column()
   declare userId: number
 
+  @column()
+  declare isDeleted?: boolean
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

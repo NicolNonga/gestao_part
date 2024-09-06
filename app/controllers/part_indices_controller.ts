@@ -6,6 +6,7 @@ export default class PartIndexController {
     const perPage = request.input('perPage')
     const data = await Part.query()
       .orderBy('created_at', 'desc')
+      .where('is_deleted', false)
       .preload('user')
       .preload('typeParts')
       .paginate(page | 1, perPage | 10)

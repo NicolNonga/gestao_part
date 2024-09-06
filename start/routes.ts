@@ -12,6 +12,9 @@ const LogsController = () => import('../app/controllers/logs_controller.js')
 const AuthsController = () => import('#controllers/auth_controller')
 const UsersController = () => import('#controllers/users_controller')
 import { middleware } from './kernel.js'
+import VehiclePartStoresController from '#controllers/vehicle_part_stores_controller'
+const PartFindOnesController = () => import('#controllers/part_find_ones_controller')
+const PartDeletesController = () => import('#controllers/part_deletes_controller')
 const PartIndexController = () => import('#controllers/part_indices_controller')
 const PartUpdatesController = () => import('#controllers/part_updates_controller')
 const PartStoresController = () => import('#controllers/part_stores_controller')
@@ -113,6 +116,15 @@ router
     router.post('/', [PartStoresController, 'store'])
     router.get('/', [PartIndexController, 'index'])
     router.put('/:partId', [PartUpdatesController, 'update'])
+    router.delete('/:partId', [PartDeletesController, 'delete'])
+    router.get('/:partId', [PartFindOnesController, 'findOne'])
   })
   .prefix('parts')
+  .use(middleware.auth())
+
+router
+  .group(() => {
+    router.post('/', [VehiclePartStoresController, 'store'])
+  })
+  .prefix('vehicle_part')
   .use(middleware.auth())

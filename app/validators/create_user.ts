@@ -6,6 +6,7 @@ const fields = {
   roleId: 'perfil',
   phone_number: 'telefone',
 }
+
 export const CreateUserValidator = vine.compile(
   vine.object({
     fullName: vine.string().nullable(),

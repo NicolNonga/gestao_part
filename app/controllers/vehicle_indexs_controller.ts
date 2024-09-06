@@ -10,6 +10,7 @@ export default class VehicleIndexController {
       .orderBy('created_at', 'desc')
       .preload('user')
       .preload('vehicleType')
+      .preload('parts')
       .paginate(page | 1, perPage | 10)
 
     return response.ok(data)
