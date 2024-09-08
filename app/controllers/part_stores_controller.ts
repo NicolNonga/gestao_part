@@ -16,6 +16,7 @@ export default class PartStoresController {
         description: partPayload.description,
         price: partPayload.price,
       })
+
       return response.status(200).send({ message: 'Cadastrado' })
     } catch (error) {
       return response.badRequest({ message: 'Falha ao cadastra peça' })

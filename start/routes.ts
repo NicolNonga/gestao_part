@@ -12,7 +12,14 @@ const LogsController = () => import('../app/controllers/logs_controller.js')
 const AuthsController = () => import('#controllers/auth_controller')
 const UsersController = () => import('#controllers/users_controller')
 import { middleware } from './kernel.js'
-import VehiclePartStoresController from '#controllers/vehicle_part_stores_controller'
+const MovimentStockListsController = () => import('#controllers/moviment_stock_lists_controller')
+const StockIndexController = () => import('#controllers/stock_indices_controller')
+const SupplierDropdownListsController = () =>
+  import('#controllers/supplier_dropdown_lists_controller')
+const StockStoresController = () => import('#controllers/stock_stores_controller')
+const SupplierIndexController = () => import('#controllers/supplier_indices_controller')
+const VehiclePartStoresController = () => import('#controllers/vehicle_part_stores_controller')
+const SupplierStoresController = () => import('#controllers/supplier_stores_controller')
 const PartFindOnesController = () => import('#controllers/part_find_ones_controller')
 const PartDeletesController = () => import('#controllers/part_deletes_controller')
 const PartIndexController = () => import('#controllers/part_indices_controller')
@@ -127,4 +134,28 @@ router
     router.post('/', [VehiclePartStoresController, 'store'])
   })
   .prefix('vehicle_part')
+  .use(middleware.auth())
+
+router
+  .group(() => {
+    router.post('/', [SupplierStoresController, 'store'])
+    router.get('/', [SupplierIndexController, 'index'])
+    router.get('/dropdown', [SupplierDropdownListsController, 'dropdown'])
+  })
+  .prefix('supplier')
+  .use(middleware.auth())
+
+router
+  .group(() => {
+    router.post('/', [StockStoresController, 'store'])
+    router.get('/', [StockIndexController, 'index'])
+  })
+  .prefix('stock')
+  .use(middleware.auth())
+
+router
+  .group(() => {
+    router.get('/', [MovimentStockListsController, 'index'])
+  })
+  .prefix('moviment_stock')
   .use(middleware.auth())
