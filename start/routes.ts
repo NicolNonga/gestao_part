@@ -62,6 +62,8 @@ router
     router.put('/:permissionId/desable', [PermissionsController, 'desable'])
     router.post('/', [PermissionsController, 'store'])
     router.get('/', [PermissionsController, 'index'])
+    router.get('/drop-down-list', [PermissionsController, 'dropDownList'])
+    router.put('/:permissionId/enable', [PermissionsController, 'enable'])
   })
   .prefix('permission')
   .use(middleware.auth())

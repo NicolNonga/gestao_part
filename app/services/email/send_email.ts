@@ -19,8 +19,6 @@ export class SendEmail {
   })
 
   async send(emailProps: emailInterface) {
-    console.log(env.get('PASSWORD_EMAIL'))
-
     try {
       this.TRASPORTER.sendMail({
         from: env.get('USER_EMAIL'),

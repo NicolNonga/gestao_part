@@ -13,6 +13,12 @@ export default class PermissionsController {
 
     return response.ok(data)
   }
+
+  async dropDownList({ response }: HttpContext) {
+    const data = await Permission.query().orderBy('createdAt', 'desc').where('is_active', true)
+
+    return response.ok(data)
+  }
   async store({ request, response }: HttpContext) {
     const { name, description } = await request.validateUsing(CreatePermissionValidator, {
       messagesProvider: permissionCustomMessage,
@@ -51,6 +57,10 @@ export default class PermissionsController {
       if (!permission) return response.badRequest({ message: 'Permissao não encontrado' })
       permission.is_active = true
       await permission.save()
-    } catch (error) {}
+      return response.status(200).send({ message: 'Permissão Actualizado' })
+    } catch (error) {
+      console.log(error)
+      return response.badRequest({ message: 'Falha Tenta Mais Tarde' })
+    }
   }
 }
