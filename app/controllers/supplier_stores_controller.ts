@@ -10,6 +10,7 @@ export default class SupplierStoresController {
         name: supplierPayload.name,
         email: supplierPayload.email,
         address: supplierPayload.address ? supplierPayload.address : undefined,
+        phoneNumber: supplierPayload.phoneNumber,
       })
       return response.status(200).send({ message: 'Fornecedor Criado Com Sucesso' })
     } catch (error) {

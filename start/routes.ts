@@ -12,6 +12,10 @@ const LogsController = () => import('../app/controllers/logs_controller.js')
 const AuthsController = () => import('#controllers/auth_controller')
 const UsersController = () => import('#controllers/users_controller')
 import { middleware } from './kernel.js'
+import UpdateTypePartsController from '#controllers/update_type_parts_controller'
+import UpdateVehicleTypesController from '#controllers/update_vehicle_types_controller'
+import UpdatedSuppliersController from '#controllers/updated_suppliers_controller'
+import DownloadFilePartsController from '#controllers/download_file_parts_controller'
 const MovimentStockListsController = () => import('#controllers/moviment_stock_lists_controller')
 const StockIndexController = () => import('#controllers/stock_indices_controller')
 const SupplierDropdownListsController = () =>
@@ -82,7 +86,7 @@ router
 router
   .group(() => {
     router.post('/', [RolePermissionsController, 'store'])
-    router.delete('/', [RolePermissionsController, 'delete'])
+    router.put('/', [RolePermissionsController, 'delete'])
   })
   .prefix('roles_permission')
   .use(middleware.auth())
@@ -99,6 +103,7 @@ router
   .group(() => {
     router.post('/', [TypePartStoresController, 'store'])
     router.get('/', [TypePartsIndicesController, 'index'])
+    router.put('/:typeId', [UpdateTypePartsController, 'update'])
     router.get('/dropdown', [TypePartDropdownsController, 'index'])
   })
   .prefix('type_parts')
@@ -107,6 +112,7 @@ router
   .group(() => {
     router.post('/', [VehicleTypeStoresController, 'store'])
     router.get('/', [VehicleTypeIndexController, 'index'])
+    router.put('/:vehicleTypeId', [UpdateVehicleTypesController, 'update'])
     router.get('/dropdown', [VehicleTypeDropdownsController, 'index'])
   })
   .prefix('vehicle_type')
@@ -127,6 +133,7 @@ router
     router.put('/:partId', [PartUpdatesController, 'update'])
     router.delete('/:partId', [PartDeletesController, 'delete'])
     router.get('/:partId', [PartFindOnesController, 'findOne'])
+    router.get('/download/file/:fileName', [DownloadFilePartsController, 'download'])
   })
   .prefix('parts')
   .use(middleware.auth())
@@ -143,6 +150,7 @@ router
     router.post('/', [SupplierStoresController, 'store'])
     router.get('/', [SupplierIndexController, 'index'])
     router.get('/dropdown', [SupplierDropdownListsController, 'dropdown'])
+    router.put('/:supplierId', [UpdatedSuppliersController, 'update'])
   })
   .prefix('supplier')
   .use(middleware.auth())

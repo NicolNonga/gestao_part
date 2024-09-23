@@ -26,6 +26,9 @@ export default class Part extends BaseModel {
   @column()
   declare isDeleted?: boolean
 
+  @column()
+  declare fileName: string
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
