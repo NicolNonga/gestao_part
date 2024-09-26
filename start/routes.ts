@@ -12,10 +12,13 @@ const LogsController = () => import('../app/controllers/logs_controller.js')
 const AuthsController = () => import('#controllers/auth_controller')
 const UsersController = () => import('#controllers/users_controller')
 import { middleware } from './kernel.js'
-import UpdateTypePartsController from '#controllers/update_type_parts_controller'
-import UpdateVehicleTypesController from '#controllers/update_vehicle_types_controller'
-import UpdatedSuppliersController from '#controllers/updated_suppliers_controller'
-import DownloadFilePartsController from '#controllers/download_file_parts_controller'
+import DeleteVehilePartsController from '#controllers/delete_vehile_parts_controller'
+const AllPartsController = () => import('#controllers/all_parts_controller')
+const UpdateVehiclesController = () => import('#controllers/update_vehicles_controller')
+const UpdateTypePartsController = () => import('#controllers/update_type_parts_controller')
+const UpdateVehicleTypesController = () => import('#controllers/update_vehicle_types_controller')
+const UpdatedSuppliersController = () => import('#controllers/updated_suppliers_controller')
+const DownloadFilePartsController = () => import('#controllers/download_file_parts_controller')
 const MovimentStockListsController = () => import('#controllers/moviment_stock_lists_controller')
 const StockIndexController = () => import('#controllers/stock_indices_controller')
 const SupplierDropdownListsController = () =>
@@ -122,12 +125,14 @@ router
   .group(() => {
     router.post('/', [VehicleStoresController, 'store'])
     router.get('/', [VehicleIndexController, 'index'])
+    router.put('/:vehicleId', [UpdateVehiclesController, 'update'])
   })
   .prefix('vehicles')
   .use(middleware.auth())
 
 router
   .group(() => {
+    router.get('/all', [AllPartsController, 'index'])
     router.post('/', [PartStoresController, 'store'])
     router.get('/', [PartIndexController, 'index'])
     router.put('/:partId', [PartUpdatesController, 'update'])
@@ -141,6 +146,7 @@ router
 router
   .group(() => {
     router.post('/', [VehiclePartStoresController, 'store'])
+    router.post('/delete', [DeleteVehilePartsController, 'delete'])
   })
   .prefix('vehicle_part')
   .use(middleware.auth())

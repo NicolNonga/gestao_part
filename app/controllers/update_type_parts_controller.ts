@@ -9,7 +9,6 @@ export default class UpdateTypePartsController {
 
     try {
       const typeExist = await TypePart.query().where('type', type).whereNot('id', typeId).first()
-      console.log(typeExist)
       if (typeExist) return response.badRequest({ message: 'Tipo Já cadastrado' })
       await TypePart.query().where('id', typeId).update({ type, description })
       return response.status(200).send({ message: 'Tipo Actualizado Com Sucesso' })
