@@ -12,7 +12,7 @@ const LogsController = () => import('../app/controllers/logs_controller.js')
 const AuthsController = () => import('#controllers/auth_controller')
 const UsersController = () => import('#controllers/users_controller')
 import { middleware } from './kernel.js'
-import DeleteVehilePartsController from '#controllers/delete_vehile_parts_controller'
+const DeleteVehilePartsController = () => import('#controllers/delete_vehile_parts_controller')
 const AllPartsController = () => import('#controllers/all_parts_controller')
 const UpdateVehiclesController = () => import('#controllers/update_vehicles_controller')
 const UpdateTypePartsController = () => import('#controllers/update_type_parts_controller')
@@ -84,7 +84,6 @@ router
     router.put('/:roleId/enable', [RolesController, 'enable'])
   })
   .prefix('roles')
-  .use(middleware.auth())
 
 router
   .group(() => {
