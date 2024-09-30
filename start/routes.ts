@@ -98,7 +98,7 @@ router
     router.post('/', [StoreClientesController, 'store'])
     router.get('/', [IndexClientsController, 'index'])
   })
-  .prefix('client')
+  .prefix('clients')
   .use(middleware.auth())
 
 router
@@ -131,16 +131,15 @@ router
 
 router
   .group(() => {
-    router.get('/all', [AllPartsController, 'index'])
-    router.post('/', [PartStoresController, 'store'])
-    router.get('/', [PartIndexController, 'index'])
-    router.put('/:partId', [PartUpdatesController, 'update'])
-    router.delete('/:partId', [PartDeletesController, 'delete'])
-    router.get('/:partId', [PartFindOnesController, 'findOne'])
+    router.get('/all', [AllPartsController, 'index']).use(middleware.auth())
+    router.post('/', [PartStoresController, 'store']).use(middleware.auth())
+    router.get('/', [PartIndexController, 'index']).use(middleware.auth())
+    router.put('/:partId', [PartUpdatesController, 'update']).use(middleware.auth())
+    router.delete('/:partId', [PartDeletesController, 'delete']).use(middleware.auth())
+    router.get('/:partId', [PartFindOnesController, 'findOne']).use(middleware.auth())
     router.get('/download/file/:fileName', [DownloadFilePartsController, 'download'])
   })
   .prefix('parts')
-  .use(middleware.auth())
 
 router
   .group(() => {

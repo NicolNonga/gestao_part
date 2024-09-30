@@ -9,28 +9,16 @@ export default class StockStoresController {
 
     try {
       // first we should see if there as part in the system already
-      const partInStock = await Stock.query()
-        .where('partId', stockPayload.partId)
-        .where('supplieId', stockPayload.supplieId)
-        .first()
-      if (partInStock) {
-        partInStock.quantity = partInStock.quantity + stockPayload.quantity
-        await partInStock.save()
-        await InventoryMoviment.create({
-          stockId: partInStock.id,
-          moviment_type: 'IN',
-          quantity: stockPayload.quantity,
-          supplieId: stockPayload.supplieId,
-        })
-        return response.status(200).send({ message: 'Stock Actualizado Com Sucesso' })
-      }
+
       const stock = await Stock.create(stockPayload)
+
       await InventoryMoviment.create({
         stockId: stock.id,
         moviment_type: 'IN',
         quantity: stockPayload.quantity,
         supplieId: stockPayload.supplieId,
       })
+
       return response.status(200).send({ message: 'Stock Criado com Sucesso' })
     } catch (error) {
       return response.badRequest({ message: 'falha oa criar stock' })
