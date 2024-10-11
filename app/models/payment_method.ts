@@ -9,6 +9,8 @@ export default class PaymentMethod extends BaseModel {
   declare description: string
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
+  @column()
+  declare userId: number
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
