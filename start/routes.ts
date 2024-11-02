@@ -17,6 +17,7 @@ import PaymentMethodListsController from '#controllers/payment_method_lists_cont
 import PaymentMethodDropDownsController from '#controllers/payment_method_drop_downs_controller'
 import PaymentListsController from '#controllers/payment_lists_controller'
 import PaymentStoresController from '#controllers/payment_stores_controller'
+import DashboardController from '#controllers/dashboard_controller'
 const DeleteVehilePartsController = () => import('#controllers/delete_vehile_parts_controller')
 const AllPartsController = () => import('#controllers/all_parts_controller')
 const UpdateVehiclesController = () => import('#controllers/update_vehicles_controller')
@@ -189,3 +190,8 @@ router
     router.get('', [PaymentListsController, 'index'])
     router.post('', [PaymentStoresController, 'store'])
   }).prefix('payment').use(middleware.auth())
+
+
+  router.group(()=> {
+    router.get('', [DashboardController, 'index'])
+  }).prefix('dashboard').use(middleware.auth())
