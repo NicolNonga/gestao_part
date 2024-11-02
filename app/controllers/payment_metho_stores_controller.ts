@@ -14,6 +14,7 @@ export default class PaymentMethoStoresController {
       })
       return response.status(200).send({ message: ' Criado Com Sucesso' })
     } catch (error) {
+      
       return response.badRequest({ message: ' Falha ao criar' })
     }
   }

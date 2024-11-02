@@ -12,6 +12,11 @@ const LogsController = () => import('../app/controllers/logs_controller.js')
 const AuthsController = () => import('#controllers/auth_controller')
 const UsersController = () => import('#controllers/users_controller')
 import { middleware } from './kernel.js'
+import PaymentMethoStoresController from '#controllers/payment_metho_stores_controller'
+import PaymentMethodListsController from '#controllers/payment_method_lists_controller'
+import PaymentMethodDropDownsController from '#controllers/payment_method_drop_downs_controller'
+import PaymentListsController from '#controllers/payment_lists_controller'
+import PaymentStoresController from '#controllers/payment_stores_controller'
 const DeleteVehilePartsController = () => import('#controllers/delete_vehile_parts_controller')
 const AllPartsController = () => import('#controllers/all_parts_controller')
 const UpdateVehiclesController = () => import('#controllers/update_vehicles_controller')
@@ -173,3 +178,14 @@ router
   })
   .prefix('moviment_stock')
   .use(middleware.auth())
+
+  router.group(()=> {
+    router.post('/', [PaymentMethoStoresController, 'store'])
+    router.get('/',  [PaymentMethodListsController, 'index'])
+    router.get('/dropdown', [PaymentMethodDropDownsController, 'index'])
+  }).prefix('payment_method').use(middleware.auth())
+  
+  router.group(()=> {
+    router.get('', [PaymentListsController, 'index'])
+    router.post('', [PaymentStoresController, 'store'])
+  }).prefix('payment').use(middleware.auth())
