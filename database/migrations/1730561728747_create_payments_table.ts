@@ -16,7 +16,6 @@ export default class extends BaseSchema {
         .inTable('clients')
         .onDelete('CASCADE')
 
-
       table
         .integer('payment_method_id')
         .notNullable()
@@ -24,7 +23,6 @@ export default class extends BaseSchema {
         .references('id')
         .inTable('payment_methods')
         .onDelete('CASCADE')
-
 
       table
         .integer('part_id')
