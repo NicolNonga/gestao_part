@@ -12,6 +12,7 @@ const LogsController = () => import('../app/controllers/logs_controller.js')
 const AuthsController = () => import('#controllers/auth_controller')
 const UsersController = () => import('#controllers/users_controller')
 import { middleware } from './kernel.js'
+const ResetPasswordsController = () => import('#controllers/reset_passwords_controller')
 const PaymentMethoStoresController = () => import('#controllers/payment_metho_stores_controller')
 const PaymentMethodListsController = () => import('#controllers/payment_method_lists_controller')
 const PaymentMethodDropDownsController = () =>
@@ -197,6 +198,13 @@ router
   })
   .prefix('payment')
   .use(middleware.auth())
+
+// this is reset password
+router
+  .group(() => {
+    router.post('', [ResetPasswordsController, 'store'])
+  })
+  .prefix('reset-password')
 
 router
   .group(() => {
